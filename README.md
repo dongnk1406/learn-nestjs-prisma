@@ -44,6 +44,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+Access: <http://localhost:3000>
+
 ## Run tests
 
 ```bash
@@ -96,3 +98,18 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+## Jenkins và Github Action
+
+[deployment documentation](https://www.youtube.com/watch?v=Gpl_usE_BWM)
+
+## init DB
+
+`docker compose up -d`
+
+## Migration
+
+`npx prisma migrate dev --name mrigration_name`
+
+Every time you run migration, we need to run `npx prisma generate` as well
