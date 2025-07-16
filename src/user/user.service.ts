@@ -13,7 +13,7 @@ import { UserRepository } from './user.repository';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async create(userData: CreateUserDto): Promise<User> {
+  async createUser(userData: CreateUserDto): Promise<User> {
     const existingUser = await this.userRepository.findUserByEmai(
       userData.email,
     );
@@ -26,7 +26,7 @@ export class UserService {
     }
     const hashPassword = await hash(userData.password, 10);
 
-    return this.userRepository.create({
+    return this.userRepository.createUser({
       ...userData,
       password: hashPassword,
     });
@@ -71,12 +71,12 @@ export class UserService {
     return user;
   }
 
-  async update(id: number, body: UpdateUserDto): Promise<User> {
-    const updatedUser = await this.userRepository.update(id, body);
+  async updateUser(id: number, body: UpdateUserDto): Promise<User> {
+    const updatedUser = await this.userRepository.updateUser(id, body);
     return updatedUser;
   }
 
-  delete(id: number) {
-    this.userRepository.delete(id);
+  deleteUser(id: number) {
+    this.userRepository.deleteUser(id);
   }
 }

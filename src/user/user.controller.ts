@@ -24,7 +24,7 @@ export class UserController {
 
   @Post()
   createUser(@Body() body: CreateUserDto): Promise<User> {
-    return this.userService.create(body);
+    return this.userService.createUser(body);
   }
 
   @Get()
@@ -42,11 +42,11 @@ export class UserController {
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateUserDto,
   ): Promise<User> {
-    return this.userService.update(id, body);
+    return this.userService.updateUser(id, body);
   }
 
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
-    void this.userService.delete(id);
+    void this.userService.deleteUser(id);
   }
 }

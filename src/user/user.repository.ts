@@ -7,20 +7,20 @@ import { User } from '@prisma/client';
 export class UserRepository {
   constructor(private prismaService: PrismaService) {}
 
-  async create(data: CreateUserDto): Promise<User> {
+  async createUser(data: CreateUserDto): Promise<User> {
     return this.prismaService.user.create({
       data,
     });
   }
 
-  async update(id: number, data: UpdateUserDto): Promise<User> {
+  async updateUser(id: number, data: UpdateUserDto): Promise<User> {
     return this.prismaService.user.update({
       where: { id },
       data,
     });
   }
 
-  delete(id: number): void {
+  deleteUser(id: number): void {
     void this.prismaService.user.delete({
       where: { id },
     });
