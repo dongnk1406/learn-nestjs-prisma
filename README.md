@@ -28,7 +28,7 @@
 ## Project setup
 
 ```bash
-$ npm install
+npm install
 ```
 
 ## Compile and run the project
@@ -66,7 +66,7 @@ When you're ready to deploy your NestJS application to production, there are som
 If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
 ```bash
-$ npm install -g @nestjs/mau
+npm install -g @nestjs/mau
 $ mau deploy
 ```
 
@@ -99,7 +99,6 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
-
 ## Jenkins và Github Action
 
 [deployment documentation](https://www.youtube.com/watch?v=Gpl_usE_BWM)
@@ -113,3 +112,54 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 `npx prisma migrate dev --name mrigration_name`
 
 Every time you run migration, we need to run `npx prisma generate` as well
+
+## Middleware
+
+Middleware functions can perform the following tasks:
+
+- execute any code.
+- make changes to the request and the response objects.
+- end the request-response cycle.
+- call the next middleware function in the stack.
+- if the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function.
+Otherwise, the request will be left hanging.
+
+## Validation
+
+- Schema based validation
+
+- Object schema validation
+
+- Class validator
+
+## Guard
+
+Guards are executed after all middleware, but before any interceptor or pipe.
+
+## Authentication
+
+### Role-based authentication
+
+## Interceptors
+
+Interceptors have a set of useful capabilities which are inspired by the Aspect Oriented Programming (AOP) technique. They make it possible to:
+
+bind extra logic before / after method execution
+transform the result returned from a function
+transform the exception thrown from a function
+extend the basic function behavior
+completely override a function depending on specific conditions (e.g., for caching purposes)
+
+## Techniques
+
+<https://docs.nestjs.com/techniques/configuration>
+
+## Security
+
+<https://docs.nestjs.com/security/authentication>
+
+## Microservices
+
+<https://docs.nestjs.com/microservices/redis>
+
+## CI/CD
