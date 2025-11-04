@@ -7,7 +7,6 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { UserController } from './user/user.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/auth.guard';
-import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [AuthModule, UserModule, PostModule, CategoryModule],

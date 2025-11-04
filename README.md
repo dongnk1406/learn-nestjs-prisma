@@ -25,6 +25,8 @@ $ npm run start:prod
 
 Access: <http://localhost:3000>
 
+Swagger <http://localhost:3000/api>
+
 ## Run tests
 
 ```bash
