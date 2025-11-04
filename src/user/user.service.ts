@@ -14,7 +14,7 @@ export class UserService {
   constructor(private userRepository: UserRepository) {}
 
   async createUser(userData: CreateUserDto): Promise<User> {
-    const existingUser = await this.userRepository.findUserByEmai(
+    const existingUser = await this.userRepository.findUserByEmail(
       userData.email,
     );
 
@@ -76,7 +76,7 @@ export class UserService {
     return updatedUser;
   }
 
-  deleteUser(id: number) {
-    this.userRepository.deleteUser(id);
+  async deleteUser(id: number) {
+    await this.userRepository.deleteUser(id);
   }
 }

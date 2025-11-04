@@ -74,6 +74,7 @@ export class PostRepository {
           },
         ],
       },
+      // only selecting necessary fields ( id, name, email, phone in owner and id, name in category)
       include: {
         owner: {
           select: {

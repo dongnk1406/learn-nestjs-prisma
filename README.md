@@ -1,29 +1,5 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Learn Nestjs REST API
 
 ## Project setup
 
@@ -34,6 +10,9 @@ npm install
 ## Compile and run the project
 
 ```bash
+# init DB
+$ docker compose up -d
+
 # development
 $ npm run start
 
@@ -72,29 +51,6 @@ $ mau deploy
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
@@ -103,13 +59,9 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 [deployment documentation](https://www.youtube.com/watch?v=Gpl_usE_BWM)
 
-## init DB
-
-`docker compose up -d`
-
 ## Migration
 
-`npx prisma migrate dev --name mrigration_name`
+`npx prisma migrate dev --name migration_name`
 
 Every time you run migration, we need to run `npx prisma generate` as well
 
@@ -140,6 +92,10 @@ Guards are executed after all middleware, but before any interceptor or pipe.
 
 ### Role-based authentication
 
+### Refresh token
+
+## Authorization
+
 ## Interceptors
 
 Interceptors have a set of useful capabilities which are inspired by the Aspect Oriented Programming (AOP) technique. They make it possible to:
@@ -149,6 +105,10 @@ transform the result returned from a function
 transform the exception thrown from a function
 extend the basic function behavior
 completely override a function depending on specific conditions (e.g., for caching purposes)
+
+## File upload
+
+## Hashing
 
 ## Techniques
 
@@ -163,3 +123,50 @@ completely override a function depending on specific conditions (e.g., for cachi
 <https://docs.nestjs.com/microservices/redis>
 
 ## CI/CD
+
+## OAuth
+
+## Redis
+
+## Kafka
+
+## Task Management System
+
+### 📦 Phase 1: Setup and Basic Structure
+
+| Task | Technology / Concept | Goal |
+|------|----------------------|------|
+| 1.1 | `nestjs/cli` | Initialize the NestJS project, set up a standard structure, and install necessary dependencies |
+| 1.2 | Prisma / Postgres | Configure the database module and create a `.env` file to manage the connection string |
+| 1.3 | `nest g module user` | Create the first module to handle user management logic |
+| 1.4 | `User.entity.ts` | Define fields such as `id`, `username`, `password`, and `salt` (or equivalent) |
+
+### 🔐 Phase 2: Authentication & Authorization
+
+| Task | Technology / Concept | Goal |
+|------|----------------------|------|
+| 2.1 | `nest g module auth` | Create the Auth module containing all login/signup logic |
+| 2.2 | `bcrypt` | Implement password hashing before saving to the DB and comparison during login |
+| 2.3 | `AuthService Pattern` | Build business logic: `signUp(dto)`, `signIn(dto)` |
+| 2.4 | `@nestjs/jwt`, `Passport.js` | Set up JWT: create secret key and configure `JwtModule` in `AuthModule` |
+| 2.5 | `JwtStrategy` | Define how NestJS extracts and verifies JWT from request headers |
+| 2.6 | `AuthGuard()` | Apply guard to protect API routes using `@UseGuards(AuthGuard())` |
+| 2.7 | `AuthController Pattern` | Create endpoints: `/auth/signup` and `/auth/signin` |
+| 2.8 | `@nestjs/common/Pipes`, `class-validator` | Add validation pipes to check input data (DTO) for signup/login |
+
+### 📋 Phase 3: Task Management Module
+
+| Task | Technology / Concept | Goal |
+|------|----------------------|------|
+| 3.1 | `nest g module task` | Create the module for task management logic |
+| 3.2 | TypeORM / Mongoose | Define the `Task` entity/schema with fields: `title`, `description`, `status`, `userId` |
+| 3.3 | One-to-Many | Establish DB relationship: link `User (1)` to `Task (N)` |
+| 3.4 | Service & Controller | Implement CRUD APIs: `GET /tasks`, `POST /tasks`, `PATCH /tasks/:id`, `DELETE /tasks/:id` |
+| 3.5 | `AuthGuard` | Protect APIs so only logged-in users can access them |
+| 3.6 | Custom Decorator | Apply ownership logic: ensure tasks belong to the currently logged-in user when creating/viewing/editing/deleting |
+
+### 🚀 Phase 4: Advanced Features (Optional)
+
+- **4.1**: Pagination and Filtering (`GET /tasks?status=...&page=...`)
+- **4.2**: Real-time Notifications (`WebSockets` / `Socket.io`)
+- **4.3**: Logging Implementation (`Winston`)

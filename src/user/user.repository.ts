@@ -20,13 +20,13 @@ export class UserRepository {
     });
   }
 
-  deleteUser(id: number): void {
-    void this.prismaService.user.delete({
+  async deleteUser(id: number) {
+    return this.prismaService.user.delete({
       where: { id },
     });
   }
 
-  async findUserByEmai(email: string) {
+  async findUserByEmail(email: string) {
     return this.prismaService.user.findUnique({
       where: {
         email,

@@ -25,3 +25,10 @@ export class LoginDto {
   @MinLength(6)
   password: string;
 }
+
+export class LoginResponseDto {
+  @IsNotEmpty()
+  accessToken: string;
+  @IsNotEmpty()
+  refreshToken: string;
+}
