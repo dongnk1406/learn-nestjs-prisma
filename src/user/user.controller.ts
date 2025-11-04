@@ -17,6 +17,8 @@ import {
   UpdateUserDto,
 } from './dto/user.dto';
 import { UserService } from './user.service';
+import { UserContext } from 'src/auth/decorators/userContext.decorator';
+import { TUserContextDto } from 'src/auth/dto/user-context.dto';
 
 @Controller('users')
 export class UserController {
@@ -28,7 +30,10 @@ export class UserController {
   }
 
   @Get()
-  getUsersList(@Query() params: TUserFilter): Promise<TUserPaginationResponse> {
+  getUsersList(
+    @Query() params: TUserFilter,
+    @UserContext() userContext: TUserContextDto,
+  ): Promise<TUserPaginationResponse> {
     return this.userService.getUsersList(params);
   }
 
