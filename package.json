@@ -21,11 +21,13 @@
     "types": "tsc --noEmit"
   },
   "dependencies": {
+    "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.2.0",
+    "@nestjs/terminus": "^11.0.0",
     "@prisma/client": "^6.11.1",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",

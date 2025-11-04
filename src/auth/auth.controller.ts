@@ -2,7 +2,7 @@ import { AuthService } from './auth.service';
 import { Body, Controller, Post } from '@nestjs/common';
 import { LoginDto, LoginResponseDto, RegisterDto } from './dto/auth.dto';
 import { User } from '@prisma/client';
-import { Public } from './guards/auth.guard';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {

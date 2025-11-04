@@ -7,9 +7,16 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { UserController } from './user/user.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/auth.guard';
+import { HealthCheckModule } from './health-check/health-check.module';
 
 @Module({
-  imports: [AuthModule, UserModule, PostModule, CategoryModule],
+  imports: [
+    AuthModule,
+    UserModule,
+    PostModule,
+    CategoryModule,
+    HealthCheckModule,
+  ],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule implements NestModule {
