@@ -18,7 +18,7 @@ import {
 } from './dto/user.dto';
 import { UserService } from './user.service';
 import { UserContext } from 'src/auth/decorators/userContext.decorator';
-import { TUserContextDto } from 'src/auth/dto/user-context.dto';
+import { TUserContextDto } from 'src/auth/dto/userContext.dto';
 
 @Controller('users')
 export class UserController {

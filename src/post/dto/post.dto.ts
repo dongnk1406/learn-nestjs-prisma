@@ -12,7 +12,7 @@ export class CreatePostDto {
   @IsNotEmpty()
   ownerId: number;
   @IsNotEmpty()
-  categoryId: number;
+  categoryIds: number[];
 }
 
 export class UpdatePostDto {
@@ -21,7 +21,7 @@ export class UpdatePostDto {
   content: string;
   status: number;
   ownerId: number;
-  categoryId: number;
+  categoryIds: number[];
 }
 
 export type TPostFilter = Partial<{

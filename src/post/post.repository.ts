@@ -8,21 +8,47 @@ export class PostRepository {
   constructor(private prismaService: PrismaService) {}
 
   async createPost(data: CreatePostDto): Promise<Post> {
-    return this.prismaService.post.create({ data });
+    const { categoryIds, ...postData } = data;
+    return this.prismaService.post.create({
+      data: {
+        ...postData,
+        category: {
+          connect: categoryIds.map((id) => ({ id })),
+        },
+      },
+    });
   }
+
   async updatePost(id: number, data: UpdatePostDto): Promise<Post> {
+    const { categoryIds, ...postData } = data;
+
     return this.prismaService.post.update({
       where: {
         id,
       },
-      data,
+      data: {
+        ...postData,
+        category: categoryIds
+          ? {
+              set: categoryIds.map((id) => ({ id })),
+            }
+          : undefined,
+      },
     });
   }
+
   deletePost(id: number) {
     void this.prismaService.post.delete({
       where: { id },
     });
   }
+  async deletePostRawQuery(id: number) {
+    await this.prismaService.$queryRaw`
+      DELETE FROM "Post"
+      WHERE id = ${id};
+    `;
+  }
+
   async getPost(id: number): Promise<Post | null> {
     return this.prismaService.post.findUnique({
       where: {
@@ -46,6 +72,16 @@ export class PostRepository {
       },
     });
   }
+  async getPostRawQuery(id: number): Promise<Post | null> {
+    const result = await this.prismaService.$queryRaw<Post[]>`
+      SELECT *
+      FROM "Post"
+      WHERE id = ${id}
+      LIMIT 1;
+    `;
+    return result[0] || null;
+  }
+
   async getPostsList(params: TPostFilter & { skip: number }) {
     return this.prismaService.post.findMany({
       take: params.itemsPerPage,
@@ -93,6 +129,18 @@ export class PostRepository {
       },
     });
   }
+  async getPostsListRawQuery(params: TPostFilter & { skip: number }) {
+    return this.prismaService.$queryRaw<Post[]>`
+      SELECT *
+      FROM "Post"
+      WHERE (title ILIKE '%' || ${params.search} || '%'
+        OR summary ILIKE '%' || ${params.search} || '%'
+        OR content ILIKE '%' || ${params.search} || '%')
+        AND status = 1
+      LIMIT ${params.itemsPerPage} OFFSET ${params.skip};
+    `;
+  }
+
   async getPostsListCount(params: TPostFilter) {
     return this.prismaService.post.count({
       where: {
@@ -120,5 +168,16 @@ export class PostRepository {
         ],
       },
     });
+  }
+  async getPostsListCountRawQuery(params: TPostFilter) {
+    const result = await this.prismaService.$queryRaw<{ count: bigint }[]>`
+      SELECT COUNT(*) as count
+      FROM "Post"
+      WHERE (title ILIKE '%' || ${params.search} || '%'
+        OR summary ILIKE '%' || ${params.search} || '%'
+        OR content ILIKE '%' || ${params.search} || '%')
+        AND status = 1;
+    `;
+    return Number(result[0]?.count || 0);
   }
 }
