@@ -30,11 +30,13 @@ export class UserController {
   }
 
   @Get()
-  getUsersList(
-    @Query() params: TUserFilter,
-    @UserContext() userContext: TUserContextDto,
-  ): Promise<TUserPaginationResponse> {
+  getUsersList(@Query() params: TUserFilter): Promise<TUserPaginationResponse> {
     return this.userService.getUsersList(params);
+  }
+
+  @Get('me')
+  getMyInfo(@UserContext() userContext: TUserContextDto): Promise<User> {
+    return this.userService.getMyInfo(Number(userContext.id));
   }
 
   @Get(':id')
