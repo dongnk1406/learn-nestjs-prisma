@@ -1,100 +1,95 @@
 name: CI
 
 on:
-    push:
-        branches: [main, develop]
-    pull_request:
-        branches: [main, develop]
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
 
 jobs:
-    ci:
-        runs-on: ubuntu-latest
+  ci:
+    runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                node-version: [18.x, 20.x]
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
-        services:
-            postgres:
-                image: postgres:15
-                env:
-                    POSTGRES_PASSWORD: postgres
-                    POSTGRES_USER: postgres
-                    POSTGRES_DB: test_db
-                options: >-
-                    --health-cmd pg_isready
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
-                ports:
-                    - 5432:5432
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        steps:
-            # Checkout code
-            - name: Checkout code
-              uses: actions/checkout@v4
+      # Setup Node.js
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: "npm"
 
-            # Setup Node.js
-            - name: Setup Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: "npm"
+      # Update and install dependencies
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm audit --audit-level high
 
-            # Update and install dependencies
-            - name: Install dependencies
-              run: |
-                  npm ci
-                  npm audit --audit-level high
+      # Prisma generate
+      - name: Generate Prisma client
+        run: npm run db:generate
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
-            # Prisma generate
-            - name: Generate Prisma client
-              run: npm run db:generate
-              env:
-                  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
+      # Prisma migrate (for testing)
+      - name: Run database migrations
+        run: npm run db:migrate
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
-            # Prisma migrate (for testing)
-            - name: Run database migrations
-              run: npm run db:migrate
-              env:
-                  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
+      # Lint
+      - name: Run linter
+        run: npm run lint
 
-            # Lint
-            - name: Run linter
-              run: npm run lint
+      # Type checking
+      - name: Run type checking
+        run: npm run types
 
-            # Type checking
-            - name: Run type checking
-              run: npm run types
+      # Test
+      - name: Run unit tests
+        run: npm run test
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
-            # Test
-            - name: Run unit tests
-              run: npm run test
-              env:
-                  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
+      # Test coverage
+      - name: Run tests with coverage
+        run: npm run test:cov
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
-            # Test coverage
-            - name: Run tests with coverage
-              run: npm run test:cov
-              env:
-                  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
+      # E2E tests
+      - name: Run e2e tests
+        run: npm run test:e2e
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
-            # E2E tests
-            - name: Run e2e tests
-              run: npm run test:e2e
-              env:
-                  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
+      # Build
+      - name: Build application
+        run: npm run build
 
-            # Build
-            - name: Build application
-              run: npm run build
-
-            # Upload test coverage (optional)
-            - name: Upload coverage reports to Codecov
-              if: matrix.node-version == '20.x'
-              uses: codecov/codecov-action@v3
-              with:
-                  file: ./coverage/lcov.info
-                  flags: unittests
-                  name: codecov-umbrella
-                  fail_ci_if_error: false
+      # Upload test coverage (optional)
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
