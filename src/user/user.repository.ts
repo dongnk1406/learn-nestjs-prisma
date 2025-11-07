@@ -26,7 +26,7 @@ export class UserRepository {
     });
   }
 
-  async findUserByEmail(email: string) {
+  async findUserByEmail(email: string): Promise<User | null> {
     return this.prismaService.user.findUnique({
       where: {
         email,
@@ -34,7 +34,7 @@ export class UserRepository {
     });
   }
 
-  async findUserById(id: number) {
+  async findUserById(id: number): Promise<User | null> {
     return this.prismaService.user.findUnique({
       where: {
         id,
@@ -42,7 +42,7 @@ export class UserRepository {
     });
   }
 
-  async getUsersList(params: TUserFilter & { skip: number }) {
+  async getUsersList(params: TUserFilter & { skip: number }): Promise<User[]> {
     return this.prismaService.user.findMany({
       take: params.itemsPerPage,
       skip: params.skip,
@@ -58,7 +58,9 @@ export class UserRepository {
     });
   }
 
-  async getUsersListCount(params: TUserFilter & { skip: number }) {
+  async getUsersListCount(
+    params: TUserFilter & { skip: number },
+  ): Promise<number> {
     return this.prismaService.user.count({
       where: {
         OR: [

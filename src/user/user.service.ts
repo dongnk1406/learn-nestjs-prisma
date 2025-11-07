@@ -1,19 +1,20 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { hash } from 'bcrypt';
 import {
   CreateUserDto,
   TUserFilter,
   TUserPaginationResponse,
   UpdateUserDto,
+  UserDto,
 } from './dto/user.dto';
 import { UserRepository } from './user.repository';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
-  async createUser(userData: CreateUserDto): Promise<User> {
+  async createUser(userData: CreateUserDto): Promise<UserDto> {
     const existingUser = await this.userRepository.findUserByEmail(
       userData.email,
     );
@@ -25,11 +26,12 @@ export class UserService {
       );
     }
     const hashPassword = await hash(userData.password, 10);
-
-    return this.userRepository.createUser({
+    const createdUser = await this.userRepository.createUser({
       ...userData,
       password: hashPassword,
     });
+
+    return plainToInstance(UserDto, createdUser);
   }
 
   async getUsersList(params: TUserFilter): Promise<TUserPaginationResponse> {
@@ -51,14 +53,14 @@ export class UserService {
     ]);
 
     return {
-      data: usersList,
+      data: plainToInstance(UserDto, usersList),
       total: total,
       itemsPerPage,
       currentPage: page,
     };
   }
 
-  async getUser(id: number): Promise<User> {
+  async getUser(id: number): Promise<UserDto> {
     const user = await this.userRepository.findUserById(id);
 
     if (!user) {
@@ -67,11 +69,10 @@ export class UserService {
         HttpStatus.BAD_REQUEST,
       );
     }
-
-    return user;
+    return plainToInstance(UserDto, user);
   }
 
-  async getMyInfo(id: number): Promise<User> {
+  async getMyInfo(id: number): Promise<UserDto> {
     const user = await this.userRepository.findUserById(id);
 
     if (!user) {
@@ -81,12 +82,12 @@ export class UserService {
       );
     }
 
-    return user;
+    return plainToInstance(UserDto, user);
   }
 
-  async updateUser(id: number, body: UpdateUserDto): Promise<User> {
+  async updateUser(id: number, body: UpdateUserDto): Promise<UserDto> {
     const updatedUser = await this.userRepository.updateUser(id, body);
-    return updatedUser;
+    return plainToInstance(UserDto, updatedUser);
   }
 
   async deleteUser(id: number) {

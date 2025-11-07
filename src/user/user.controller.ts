@@ -9,12 +9,12 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { User } from '@prisma/client';
 import {
   CreateUserDto,
   TUserFilter,
   TUserPaginationResponse,
   UpdateUserDto,
+  UserDto,
 } from './dto/user.dto';
 import { UserService } from './user.service';
 import { UserContext } from 'src/auth/decorators/userContext.decorator';
@@ -25,7 +25,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  createUser(@Body() body: CreateUserDto): Promise<User> {
+  createUser(@Body() body: CreateUserDto): Promise<UserDto> {
     return this.userService.createUser(body);
   }
 
@@ -35,12 +35,12 @@ export class UserController {
   }
 
   @Get('me')
-  getMyInfo(@UserContext() userContext: TUserContextDto): Promise<User> {
+  getMyInfo(@UserContext() userContext: TUserContextDto): Promise<UserDto> {
     return this.userService.getMyInfo(Number(userContext.id));
   }
 
   @Get(':id')
-  getUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
+  getUser(@Param('id', ParseIntPipe) id: number): Promise<UserDto> {
     return this.userService.getUser(Number(id));
   }
 
@@ -48,7 +48,7 @@ export class UserController {
   updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateUserDto,
-  ): Promise<User> {
+  ): Promise<UserDto> {
     return this.userService.updateUser(id, body);
   }
 
