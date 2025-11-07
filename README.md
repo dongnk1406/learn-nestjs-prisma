@@ -70,9 +70,9 @@ As part of our SQL learning process, every query should be implemented using bot
 ```bash
 npx prisma migrate dev --name migration_name`
 
-npx db:generate`
+npm run db:generate`
 
-db:migrate:dev`
+npm run db:migrate:dev`
 ```
 
 ## ✅ Middleware

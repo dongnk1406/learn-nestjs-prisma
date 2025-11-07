@@ -8,6 +8,8 @@ import { UserController } from './user/user.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/auth.guard';
 import { HealthCheckModule } from './health-check/health-check.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksModule } from './task-scheduler/task.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { HealthCheckModule } from './health-check/health-check.module';
     PostModule,
     CategoryModule,
     HealthCheckModule,
+    TasksModule,
+    ScheduleModule.forRoot(),
   ],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
