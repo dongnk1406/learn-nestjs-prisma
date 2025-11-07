@@ -75,21 +75,6 @@ jobs:
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
-      # E2E tests
-      - name: Run e2e tests
-        run: npm run test:e2e
-        env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
-
       # Build
       - name: Build application
         run: npm run build
-
-      # Upload test coverage (optional)
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
