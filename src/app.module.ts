@@ -10,6 +10,7 @@ import { JwtAuthGuard } from './auth/guards/auth.guard';
 import { HealthCheckModule } from './health-check/health-check.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './task-scheduler/task.module';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
@@ -20,6 +21,20 @@ import { TasksModule } from './task-scheduler/task.module';
     HealthCheckModule,
     TasksModule,
     ScheduleModule.forRoot(),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        name: 'nestjs-app',
+        level: process.env.APP_ENV === 'prod' ? 'info' : 'debug',
+        transport: {
+          targets: [
+            {
+              target: 'pino-pretty',
+              level: 'debug',
+            },
+          ],
+        },
+      },
+    }),
   ],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
