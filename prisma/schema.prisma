@@ -23,6 +23,7 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime?  @updatedAt
   post      Post[]
+  comments  Comment[]
   reminders DateTime[]
 }
 
@@ -35,6 +36,7 @@ model Post {
   owner    User       @relation(fields: [ownerId], references: [id])
   ownerId  Int
   category Category[]
+  comments Comment[]
 }
 
 model Category {
@@ -47,6 +49,13 @@ model Category {
 }
 
 model Comment {
-  id      Int    @id @default(autoincrement())
-  message String
+  id        Int       @id @default(autoincrement())
+  message   String
+  postId    Int
+  authorId  Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    User      @relation(fields: [authorId], references: [id])
 }

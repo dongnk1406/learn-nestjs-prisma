@@ -699,3 +699,9 @@ FROM message_logs;
 ```
 
 > Tính tỉ lệ thành công (%) bằng cách đếm số message DELIVERED chia cho tổng số message. `FILTER` chỉ có trong PostgreSQL.
+
+### Truy vấn N+1
+
+Truy vấn N+1 (N+1 query) là một vấn đề hiệu suất phổ biến trong ứng dụng cơ sở dữ liệu, xảy ra khi bạn thực hiện 1 truy vấn ban đầu để lấy dữ liệu chính,
+sau đó lặp qua kết quả và thực hiện thêm N truy vấn nữa để lấy dữ liệu liên quan, tổng cộng là 1 + N truy vấn thay vì một truy vấn duy nhất,
+gây chậm trễ và lãng phí tài nguyên, thường gặp khi dùng ORM (Object-Relational Mapper).

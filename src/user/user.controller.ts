@@ -19,10 +19,15 @@ import {
 import { UserService } from './user.service';
 import { UserContext } from 'src/auth/decorators/userContext.decorator';
 import { TUserContextDto } from 'src/auth/dto/userContext.dto';
+import { CommentService } from 'src/comment/comment.service';
+import { CommentDto } from 'src/comment/dto/comment.dto';
 
 @Controller('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private commentService: CommentService,
+  ) {}
 
   @Post()
   createUser(@Body() body: CreateUserDto): Promise<UserDto> {
@@ -55,5 +60,19 @@ export class UserController {
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     void this.userService.deleteUser(id);
+  }
+
+  @Get(':userId/comments')
+  getCommentsForUser(
+    @Param('userId', ParseIntPipe) userId: number,
+  ): Promise<CommentDto[]> {
+    return this.commentService.getCommentsByAuthorId(userId);
+  }
+
+  @Get('me/comments')
+  getMyComments(
+    @UserContext() userContext: TUserContextDto,
+  ): Promise<CommentDto[]> {
+    return this.commentService.getCommentsByAuthorId(Number(userContext.id));
   }
 }

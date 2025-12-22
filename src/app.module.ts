@@ -3,6 +3,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
 import { CategoryModule } from './category/category.module';
+import { CommentModule } from './comment/comment.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { UserController } from './user/user.controller';
 import { APP_GUARD } from '@nestjs/core';
@@ -18,6 +19,7 @@ import { LoggerModule } from 'nestjs-pino';
     UserModule,
     PostModule,
     CategoryModule,
+    CommentModule,
     HealthCheckModule,
     TasksModule,
     ScheduleModule.forRoot(),
