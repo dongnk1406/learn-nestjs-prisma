@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
+import { CommentService } from '../comment/comment.service';
 import {
   CreatePostDto,
   UpdatePostDto,
@@ -29,6 +30,11 @@ describe('PostController', () => {
     deletePost: jest.fn(),
   };
 
+  const commentServiceMock = {
+    createComment: jest.fn(),
+    getCommentsByPostId: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PostController],
@@ -36,6 +42,10 @@ describe('PostController', () => {
         {
           provide: PostService,
           useValue: postServiceMock,
+        },
+        {
+          provide: CommentService,
+          useValue: commentServiceMock,
         },
       ],
     }).compile();
