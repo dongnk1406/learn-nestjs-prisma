@@ -1,5 +1,6 @@
 import { IsEmail, IsNotEmpty, Matches, MinLength } from 'class-validator';
 import { Exclude, Expose } from 'class-transformer';
+import { UserStatus } from '@prisma/client';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -15,7 +16,7 @@ export class CreateUserDto {
   @MinLength(6)
   password: string;
 
-  status: number;
+  status?: UserStatus;
   reminders: string[];
 }
 
@@ -26,7 +27,7 @@ export class UpdateUserDto {
   @Matches(/^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/)
   phone: string;
 
-  status: number;
+  status?: UserStatus;
 }
 
 export class UserDto {
@@ -39,7 +40,7 @@ export class UserDto {
   @Expose()
   email: string;
   @Expose()
-  status: number;
+  status: UserStatus;
   @Expose()
   reminders: string[];
   @Exclude()

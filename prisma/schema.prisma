@@ -13,13 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserStatus {
+  INACTIVE
+  ACTIVE
+}
+
 model User {
   id        Int        @id @default(autoincrement())
   email     String     @unique
   password  String
   phone     String?
   name      String
-  status    Int        @default(1)
+  status    UserStatus @default(ACTIVE)
   createdAt DateTime   @default(now())
   updatedAt DateTime?  @updatedAt
   post      Post[]
@@ -55,7 +60,7 @@ model Comment {
   authorId  Int
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  author    User      @relation(fields: [authorId], references: [id])
+
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id])
 }

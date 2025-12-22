@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty, Matches, MinLength } from 'class-validator';
+import { UserStatus } from '@prisma/client';
 
 export class RegisterDto {
   @IsNotEmpty()
@@ -14,7 +15,7 @@ export class RegisterDto {
   @MinLength(6)
   password: string;
 
-  status: number;
+  status?: UserStatus;
 }
 
 export class LoginDto {

@@ -9,6 +9,10 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { UserContext } from 'src/auth/decorators/userContext.decorator';
+import { TUserContextDto } from 'src/auth/dto/userContext.dto';
+import { CommentService } from 'src/comment/comment.service';
+import { CommentDto } from 'src/comment/dto/comment.dto';
 import {
   CreateUserDto,
   TUserFilter,
@@ -17,10 +21,6 @@ import {
   UserDto,
 } from './dto/user.dto';
 import { UserService } from './user.service';
-import { UserContext } from 'src/auth/decorators/userContext.decorator';
-import { TUserContextDto } from 'src/auth/dto/userContext.dto';
-import { CommentService } from 'src/comment/comment.service';
-import { CommentDto } from 'src/comment/dto/comment.dto';
 
 @Controller('users')
 export class UserController {
@@ -58,8 +58,8 @@ export class UserController {
   }
 
   @Delete(':id')
-  deleteUser(@Param('id', ParseIntPipe) id: number) {
-    void this.userService.deleteUser(id);
+  deleteUser(@Param('id', ParseIntPipe) id: number): Promise<string> {
+    return this.userService.deleteUser(id);
   }
 
   @Get(':userId/comments')

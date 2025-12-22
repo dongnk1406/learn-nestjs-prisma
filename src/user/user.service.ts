@@ -90,7 +90,7 @@ export class UserService {
     return plainToInstance(UserDto, updatedUser);
   }
 
-  async deleteUser(id: number) {
-    await this.userRepository.deleteUser(id);
+  async deleteUser(id: number): Promise<string> {
+    return this.userRepository.deleteUser(id);
   }
 }
