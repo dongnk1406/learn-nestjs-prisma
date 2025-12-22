@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Cron, Interval, Timeout } from '@nestjs/schedule';
+// import { Cron, Interval, Timeout } from '@nestjs/schedule';
 
 @Injectable()
 export class TasksService {
@@ -11,7 +11,6 @@ export class TasksService {
   // handleInterval() {
   //   console.log('Called every 10 seconds');
   // }
-
   // @Timeout(50000)
   // handleTimeout() {
   //   console.log('Called once after 50 seconds');
