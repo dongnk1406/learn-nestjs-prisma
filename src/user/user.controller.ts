@@ -21,6 +21,7 @@ import {
   UserDto,
 } from './dto/user.dto';
 import { UserService } from './user.service';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('users')
 export class UserController {
@@ -29,6 +30,7 @@ export class UserController {
     private commentService: CommentService,
   ) {}
 
+  @Public()
   @Post()
   createUser(@Body() body: CreateUserDto): Promise<UserDto> {
     return this.userService.createUser(body);

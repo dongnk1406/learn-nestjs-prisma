@@ -152,6 +152,14 @@ completely override a function depending on specific conditions (e.g., for cachi
 
 ## Cron jobs
 
+## Elasticsearch
+
+## CQRS
+
+## Load balancing
+
+## Metrics & Monitoring
+
 ## Structure of Project
 
 In this project I used a mix of [clean architecture](https://jasontaylor.dev/clean-architecture-getting-started/), [vertical slice architecture](https://jimmybogard.com/vertical-slice-architecture/) and I used [feature folder structure](http://www.kamilgrzybek.com/design/feature-folders/) to structure my files.
