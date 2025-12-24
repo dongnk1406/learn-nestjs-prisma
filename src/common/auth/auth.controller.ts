@@ -3,6 +3,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { LoginDto, LoginResponseDto, RegisterDto } from './dto/auth.dto';
 import { User } from '@prisma/client';
 import { Public } from './decorators/public.decorator';
+import { ResponseMessage } from '../interceptors/response.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -15,6 +16,7 @@ export class AuthController {
   }
 
   @Public()
+  @ResponseMessage('Login successful')
   @Post('login')
   login(@Body() body: LoginDto): Promise<LoginResponseDto> {
     return this.authService.login(body);
