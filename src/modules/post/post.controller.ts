@@ -17,14 +17,14 @@ import {
   UpdatePostDto,
 } from './dto/post.dto';
 import { PostService } from './post.service';
-import { CommentService } from 'src/comment/comment.service';
+import { CommentService } from 'src/modules/comment/comment.service';
 import {
   CommentDto,
   CreateCommentDto,
   CreateCommentForPostDto,
-} from 'src/comment/dto/comment.dto';
-import { UserContext } from 'src/auth/decorators/userContext.decorator';
-import { TUserContextDto } from 'src/auth/dto/userContext.dto';
+} from 'src/modules/comment/dto/comment.dto';
+import { UserContext } from 'src/common/auth/decorators/userContext.decorator';
+import { TUserContextDto } from 'src/common/auth/dto/userContext.dto';
 
 @Controller('posts')
 export class PostController {

@@ -1,17 +1,17 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { PostModule } from './post/post.module';
-import { CategoryModule } from './category/category.module';
-import { CommentModule } from './comment/comment.module';
+import { AuthModule } from './common/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
+import { CategoryModule } from './modules/category/category.module';
+import { CommentModule } from './modules/comment/comment.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { UserController } from './user/user.controller';
+import { UserController } from './modules/user/user.controller';
 import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './auth/guards/auth.guard';
-import { HealthCheckModule } from './health-check/health-check.module';
+import { JwtAuthGuard } from './common/auth/guards/auth.guard';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TasksModule } from './task-scheduler/task.module';
+import { TasksModule } from './modules/task-scheduler/task.module';
 import { LoggerModule } from 'nestjs-pino';
+import { PostModule } from './modules/post/post.module';
+import { HealthCheckModule } from './common/health-check/health-check.module';
 
 @Module({
   imports: [

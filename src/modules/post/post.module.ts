@@ -3,7 +3,7 @@ import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { PrismaService } from 'src/prisma.service';
 import { PostRepository } from './post.repository';
-import { CommentModule } from 'src/comment/comment.module';
+import { CommentModule } from 'src/modules/comment/comment.module';
 
 @Module({
   imports: [CommentModule],

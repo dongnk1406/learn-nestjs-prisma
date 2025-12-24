@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter } from './exception/http-exception.filter';
-import { RolesGuard } from './auth/guards/roles.guard';
+import { HttpExceptionFilter } from './common/exception/http-exception.filter';
+import { RolesGuard } from './common/auth/guards/roles.guard';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {

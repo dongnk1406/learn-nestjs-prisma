@@ -17,8 +17,8 @@ import {
   TCommentPaginationResponse,
   UpdateCommentDto,
 } from './dto/comment.dto';
-import { UserContext } from 'src/auth/decorators/userContext.decorator';
-import { TUserContextDto } from 'src/auth/dto/userContext.dto';
+import { UserContext } from 'src/common/auth/decorators/userContext.decorator';
+import { TUserContextDto } from 'src/common/auth/dto/userContext.dto';
 
 @Controller('comments')
 export class CommentController {

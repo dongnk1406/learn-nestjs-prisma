@@ -9,10 +9,10 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { UserContext } from 'src/auth/decorators/userContext.decorator';
-import { TUserContextDto } from 'src/auth/dto/userContext.dto';
-import { CommentService } from 'src/comment/comment.service';
-import { CommentDto } from 'src/comment/dto/comment.dto';
+import { UserContext } from 'src/common/auth/decorators/userContext.decorator';
+import { TUserContextDto } from 'src/common/auth/dto/userContext.dto';
+import { CommentService } from 'src/modules/comment/comment.service';
+import { CommentDto } from 'src/modules/comment/dto/comment.dto';
 import {
   CreateUserDto,
   TUserFilter,
@@ -21,7 +21,7 @@ import {
   UserDto,
 } from './dto/user.dto';
 import { UserService } from './user.service';
-import { Public } from 'src/auth/decorators/public.decorator';
+import { Public } from 'src/common/auth/decorators/public.decorator';
 
 @Controller('users')
 export class UserController {
