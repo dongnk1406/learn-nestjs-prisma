@@ -122,6 +122,10 @@ completely override a function depending on specific conditions (e.g., for cachi
 
 ## Index DB
 
+## Inversion of control (IoC)
+
+<https://www.youtube.com/watch?v=8EhoEu_kYPU&list=PLw0w5s5b9NK7HkcQUBIxjcHPB2DS4UKDg&index=46>
+
 ## File upload
 
 <https://www.youtube.com/watch?v=8ANuWk9KWcA>
@@ -160,6 +164,12 @@ completely override a function depending on specific conditions (e.g., for cachi
 
 ## Metrics & Monitoring
 
+## Race Condition
+
+Với race conditions, luôn phải tạo constraint và trigger cũng như sử dụng transaction.transaction
+
+Trong nestjs, sử dụng [Sequelize transactions](https://docs.nestjs.com/techniques/database#sequelize-transactions)
+
 ## Structure of Project
 
 In this project I used a mix of [clean architecture](https://jasontaylor.dev/clean-architecture-getting-started/), [vertical slice architecture](https://jimmybogard.com/vertical-slice-architecture/) and I used [feature folder structure](http://www.kamilgrzybek.com/design/feature-folders/) to structure my files.
@@ -193,4 +203,14 @@ I used CQRS to decompose my features into small parts that makes our application
 
 Using the CQRS pattern, we cut each business functionality into vertical slices, for each of these slices we group classes (see [technical folders structure](http://www.kamilgrzybek.com/design/feature-folders)) specific to that feature together (command, handlers, infrastructure, repository, controllers, etc). In our CQRS pattern each command/query handler is a separate slice. This is where you can reduce coupling between layers. Each handler can be a separated code unit, even copy/pasted. Thanks to that, we can tune down the specific method to not follow general conventions (e.g. use custom SQL query or even different storage). In a traditional layered architecture, when we change the core generic mechanism in one layer, it can impact all methods.
 
-#
+## Aspect Oriented Programming (AOP)
+
+Aspect Oriented Programming (AOP) – lập trình hướng khía cạnh: là một kỹ thuật lập trình (kiểu như lập trình hướng đối tượng) nhằm phân tách chương trình thành cách moudule riêng rẽ, phân biệt, không phụ thuộc nhau.
+
+## NPM tips
+
+<https://www.youtube.com/watch?v=N5DUT6QNwkM>
+
+## Nest CLI
+
+<https://www.schemastore.org/nest-cli.json>
