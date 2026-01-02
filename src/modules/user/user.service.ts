@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { hash } from 'bcrypt';
 import {
   CreateUserDto,
+  LoginResponseDto,
   TUserFilter,
   TUserPaginationResponse,
   UpdateUserDto,
@@ -9,10 +9,15 @@ import {
 } from './dto/user.dto';
 import { UserRepository } from './user.repository';
 import { plainToInstance } from 'class-transformer';
+import { hash, compare } from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private jwtService: JwtService,
+  ) {}
 
   async createUser(userData: CreateUserDto): Promise<UserDto> {
     const existingUser = await this.userRepository.findUserByEmail(
@@ -92,5 +97,46 @@ export class UserService {
 
   async deleteUser(id: number): Promise<string> {
     return this.userRepository.deleteUser(id);
+  }
+
+  async login(data: {
+    email: string;
+    password: string;
+  }): Promise<LoginResponseDto> {
+    //step 1: checking user is exist by email
+    const user = await this.userRepository.findUserByEmail(data.email);
+
+    if (!user) {
+      throw new HttpException(
+        { message: 'Account is not exist.' },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    const verify = await compare(data.password, user.password);
+
+    if (!verify) {
+      throw new HttpException(
+        { message: 'Password does not correct.' },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    //step 2: generate access token and refresh token
+    const payload = { id: user.id, name: user.name, email: user.email };
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: process.env.ACCESS_TOKEN_KEY,
+      expiresIn: '1h',
+    });
+
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: process.env.REFRESH_TOKEN_KEY,
+      expiresIn: '7d',
+    });
+
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 }

@@ -15,6 +15,8 @@ import { CommentService } from 'src/modules/comment/comment.service';
 import { CommentDto } from 'src/modules/comment/dto/comment.dto';
 import {
   CreateUserDto,
+  LoginDto,
+  LoginResponseDto,
   TUserFilter,
   TUserPaginationResponse,
   UpdateUserDto,
@@ -22,6 +24,7 @@ import {
 } from './dto/user.dto';
 import { UserService } from './user.service';
 import { Public } from 'src/common/auth/decorators/public.decorator';
+import { ResponseMessage } from 'src/common/interceptors/response.decorator';
 
 @Controller('users')
 export class UserController {
@@ -34,6 +37,13 @@ export class UserController {
   @Post()
   createUser(@Body() body: CreateUserDto): Promise<UserDto> {
     return this.userService.createUser(body);
+  }
+
+  @Public()
+  @ResponseMessage('Login successful')
+  @Post('login')
+  login(@Body() body: LoginDto): Promise<LoginResponseDto> {
+    return this.userService.login(body);
   }
 
   @Get()

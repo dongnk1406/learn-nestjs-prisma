@@ -110,7 +110,11 @@ Guards are executed after all middleware, but before any interceptor or pipe.
 
 ## Cookies
 
-## Interceptors
+## Pipe
+
+In NestJS, Pipes are classes used to intercept and process incoming data within the request lifecycle. Their primary functions are transformation (converting data to a desired format, e.g., string to integer) and validation (ensuring data meets specific criteria and throwing exceptions if it doesn't).
+
+## ✅ Interceptors
 
 Interceptors have a set of useful capabilities which are inspired by the Aspect Oriented Programming (AOP) technique. They make it possible to:
 
@@ -207,6 +211,8 @@ Using the CQRS pattern, we cut each business functionality into vertical slices,
 
 Aspect Oriented Programming (AOP) – lập trình hướng khía cạnh: là một kỹ thuật lập trình (kiểu như lập trình hướng đối tượng) nhằm phân tách chương trình thành cách moudule riêng rẽ, phân biệt, không phụ thuộc nhau.
 
+![alt text](assets/aop.png)
+
 ## NPM tips
 
 <https://www.youtube.com/watch?v=N5DUT6QNwkM>
@@ -214,3 +220,7 @@ Aspect Oriented Programming (AOP) – lập trình hướng khía cạnh: là m�
 ## Nest CLI
 
 <https://www.schemastore.org/nest-cli.json>
+
+## Provider
+
+- Provider in Nestjs is Bean in java

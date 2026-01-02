@@ -1,5 +1,4 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AuthModule } from './common/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { CategoryModule } from './modules/category/category.module';
 import { CommentModule } from './modules/comment/comment.module';
@@ -15,7 +14,6 @@ import { HealthCheckModule } from './common/health-check/health-check.module';
 
 @Module({
   imports: [
-    AuthModule,
     UserModule,
     PostModule,
     CategoryModule,

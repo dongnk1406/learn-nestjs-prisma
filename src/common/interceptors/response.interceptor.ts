@@ -17,9 +17,10 @@ export interface NormalizedResponse<T> {
 }
 
 @Injectable()
-export class ResponseInterceptor<T>
-  implements NestInterceptor<T, NormalizedResponse<T>>
-{
+export class ResponseInterceptor<T> implements NestInterceptor<
+  T,
+  NormalizedResponse<T>
+> {
   constructor(private reflector: Reflector) {}
 
   intercept(

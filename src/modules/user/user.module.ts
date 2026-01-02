@@ -10,5 +10,6 @@ import { CommentModule } from 'src/modules/comment/comment.module';
   imports: [CommentModule],
   controllers: [UserController],
   providers: [UserService, PrismaService, JwtService, UserRepository],
+  exports: [JwtService],
 })
 export class UserModule {}
