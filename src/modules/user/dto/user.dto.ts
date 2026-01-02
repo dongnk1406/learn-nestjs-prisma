@@ -55,8 +55,8 @@ export class LoginDto {
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
-  @MinLength(6)
+  @IsNotEmpty({ message: 'Password should not be empty.' })
+  @MinLength(6, { message: 'Password length is at least 6 characters.' })
   password: string;
 }
 

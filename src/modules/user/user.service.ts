@@ -117,7 +117,7 @@ export class UserService {
 
     if (!verify) {
       throw new HttpException(
-        { message: 'Password does not correct.' },
+        { message: 'Login failed. Please check your credentials.' },
         HttpStatus.UNAUTHORIZED,
       );
     }
