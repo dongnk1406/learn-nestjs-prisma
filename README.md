@@ -13,6 +13,8 @@ npm install
 # init DB
 $ docker compose up -d
 
+$ npm run db:generate
+
 # development
 $ npm run start
 
