@@ -4,7 +4,7 @@
 ## Project setup
 
 ```bash
-npm install
+$ npm install
 ```
 
 ## Compile and run the project
@@ -13,9 +13,12 @@ npm install
 # init DB
 $ docker compose up -d
 
+# development
+
+$ npm run db:migrate:dev
+
 $ npm run db:generate
 
-# development
 $ npm run start
 
 # watch mode
@@ -44,20 +47,63 @@ $ npm run test:cov
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+PM2 keeps your Node app running, restarts it if it crashes, and helps manage multiple processes.
 
 ```bash
-npm install -g @nestjs/mau
-$ mau deploy
+$ npm install -g pm2
+$ npm run build
+$ pm2 start dist/main.js --name process-name
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 🚀 What PM2 can do
 
-## License
+1. Keep your app alive
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+* If your app crashes, PM2 automatically restarts it
+
+2. Cluster mode (use all CPU cores)
+
+```bash
+$ pm2 start dist/main.js -i max
+```
+
+* Runs multiple Node processes
+* Load-balances across CPU cores
+
+3. Zero-downtime reloads
+
+```bash
+pm2 reload app
+```
+
+* Reload without dropping requests
+
+4. Logging
+
+```bash
+pm2 logs
+```
+
+* Centralized stdout / stderr logs
+
+5. Monitoring
+
+```bash
+pm2 monit
+```
+
+* CPU
+* Memory
+* Restart count
+
+### When PM2 *does* make sense
+
+| Scenario                      | Use PM2? |
+| ----------------------------- | -------- |
+| Bare metal / VM               | ✅        |
+| EC2 without Docker            | ✅        |
+| Docker + K8s / ECS            | ❌        |
+| Simple VPS (no orchestration) | ✅        |
 
 ## Jenkins và Github Action
 
