@@ -21,10 +21,11 @@ COPY package*.json ./
 COPY prisma ./prisma
 
 RUN npm install --omit=dev
+RUN npm i -g pm2
 RUN npx prisma generate
 
 COPY --from=build-stage /app/dist ./dist
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+CMD ["pm2-runtime", "dist/main.js"]

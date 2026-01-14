@@ -32,14 +32,15 @@ model User {
   reminders DateTime[]
 
   // Database indexes for performance optimization
-  @@index([status])                 // For filtering by user status (ACTIVE/INACTIVE)
-  @@index([createdAt])             // For timestamp-based ordering and filtering
-  @@index([name])                  // For name-based searches
-  @@index([status, createdAt])     // Composite index for filtered and sorted queries
-  @@index([email, status])         // For authentication with status validation
-  @@index([name, status])          // For name searches with status filtering
+  @@index([status]) // For filtering by user status (ACTIVE/INACTIVE)
+  @@index([createdAt]) // For timestamp-based ordering and filtering
+  @@index([name]) // For name-based searches
+  @@index([status, createdAt]) // Composite index for filtered and sorted queries
+  @@index([email, status]) // For authentication with status validation
+  @@index([name, status]) // For name searches with status filtering
 }
 
+// One-to-Many relationship with User and Post
 model Post {
   id       Int        @id @default(autoincrement())
   title    String
@@ -47,11 +48,12 @@ model Post {
   content  String     @db.VarChar(500)
   status   Int        @default(1)
   owner    User       @relation(fields: [ownerId], references: [id])
-  ownerId  Int
+  ownerId  Int        @unique
   category Category[]
   comments Comment[]
 }
 
+// Many-to-Many relationship with Post and Category
 model Category {
   id          Int       @id @default(autoincrement())
   name        String

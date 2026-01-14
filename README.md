@@ -4,7 +4,7 @@
 ## Project setup
 
 ```bash
-$ npm install
+npm install
 ```
 
 ## Compile and run the project
@@ -14,7 +14,6 @@ $ npm install
 $ docker compose up -d
 
 # development
-
 $ npm run db:migrate:dev
 
 $ npm run db:generate
@@ -50,9 +49,9 @@ $ npm run test:cov
 PM2 keeps your Node app running, restarts it if it crashes, and helps manage multiple processes.
 
 ```bash
-$ npm install -g pm2
-$ npm run build
-$ pm2 start dist/main.js --name process-name
+npm install -g pm2
+npm run build
+pm2 start dist/main.js --name process-name
 ```
 
 ### 🚀 What PM2 can do
@@ -64,7 +63,11 @@ $ pm2 start dist/main.js --name process-name
 2. Cluster mode (use all CPU cores)
 
 ```bash
-$ pm2 start dist/main.js -i max
+pm2 start dist/main.js -i max
+```
+
+```bash
+pm2 start ecosystem.config.js
 ```
 
 * Runs multiple Node processes
@@ -127,20 +130,20 @@ npm run db:migrate:dev`
 
 Middleware functions can perform the following tasks:
 
-- execute any code.
-- make changes to the request and the response objects.
-- end the request-response cycle.
-- call the next middleware function in the stack.
-- if the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function.
+* execute any code.
+* make changes to the request and the response objects.
+* end the request-response cycle.
+* call the next middleware function in the stack.
+* if the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function.
 Otherwise, the request will be left hanging.
 
 ## ✅ Validation
 
-- Schema based validation
+* Schema based validation
 
-- Object schema validation
+* Object schema validation
 
-- Class validator
+* Class validator
 
 ## ✅ Guard
 
@@ -249,9 +252,9 @@ The use of the [mediator pattern](https://dotnetcoretutorials.com/2019/04/30/the
 
 I used CQRS to decompose my features into small parts that makes our application:
 
-- Maximize performance, scalability and simplicity.
-- Easy to maintain and add features to. Changes only affect one command or query, avoiding breaking changes or creating side effects.
-- It gives us better separation of concerns and cross-cutting concern (with help of mediatr behavior pipelines), instead of bloated service classes doing many things.
+* Maximize performance, scalability and simplicity.
+* Easy to maintain and add features to. Changes only affect one command or query, avoiding breaking changes or creating side effects.
+* It gives us better separation of concerns and cross-cutting concern (with help of mediatr behavior pipelines), instead of bloated service classes doing many things.
 
 Using the CQRS pattern, we cut each business functionality into vertical slices, for each of these slices we group classes (see [technical folders structure](http://www.kamilgrzybek.com/design/feature-folders)) specific to that feature together (command, handlers, infrastructure, repository, controllers, etc). In our CQRS pattern each command/query handler is a separate slice. This is where you can reduce coupling between layers. Each handler can be a separated code unit, even copy/pasted. Thanks to that, we can tune down the specific method to not follow general conventions (e.g. use custom SQL query or even different storage). In a traditional layered architecture, when we change the core generic mechanism in one layer, it can impact all methods.
 
@@ -271,4 +274,4 @@ Aspect Oriented Programming (AOP) – lập trình hướng khía cạnh: là m�
 
 ## Provider
 
-- Provider in Nestjs is Bean in java
+* Provider in Nestjs is Bean in java
