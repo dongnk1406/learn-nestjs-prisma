@@ -58,6 +58,8 @@ export class UserDto {
   status: UserStatus;
   @Expose()
   reminders: string[];
+  @Expose()
+  roleId: number;
   @Exclude()
   password: string;
   @Expose()

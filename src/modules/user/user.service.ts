@@ -87,7 +87,9 @@ export class UserService {
       );
     }
 
-    return plainToInstance(UserDto, user);
+    return plainToInstance(UserDto, user, {
+      excludeExtraneousValues: true,
+    });
   }
 
   async updateUser(id: number, body: UpdateUserDto): Promise<UserDto> {
