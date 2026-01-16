@@ -124,6 +124,8 @@ npx prisma migrate dev --name migration_name`
 npm run db:generate`
 
 npm run db:migrate:dev`
+
+npm run db:seed`
 ```
 
 ## ✅ Middleware

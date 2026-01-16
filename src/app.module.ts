@@ -2,6 +2,8 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UserModule } from './modules/user/user.module';
 import { CategoryModule } from './modules/category/category.module';
 import { CommentModule } from './modules/comment/comment.module';
+import { RoleModule } from './modules/role/role.module';
+import { PermissionModule } from './modules/permission/permission.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { UserController } from './modules/user/user.controller';
 import { APP_GUARD } from '@nestjs/core';
@@ -19,6 +21,8 @@ import { RolesGuard } from './common/auth/guards/roles.guard';
     PostModule,
     CategoryModule,
     CommentModule,
+    RoleModule,
+    PermissionModule,
     HealthCheckModule,
     TasksModule,
     ScheduleModule.forRoot(),

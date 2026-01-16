@@ -1,4 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { compare, hash } from 'bcrypt';
+import { plainToInstance } from 'class-transformer';
 import {
   CreateUserDto,
   LoginResponseDto,
@@ -8,9 +11,6 @@ import {
   UserDto,
 } from './dto/user.dto';
 import { UserRepository } from './user.repository';
-import { plainToInstance } from 'class-transformer';
-import { hash, compare } from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
@@ -122,8 +122,20 @@ export class UserService {
       );
     }
 
+    // Extract permissions from role with proper typing
+    const permissions: string[] =
+      user.role?.permissions?.map((rp) => rp.permission.nameCode) || [];
+
     //step 2: generate access token and refresh token
-    const payload = { id: user.id, name: user.name, email: user.email };
+    const payload = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      roleId: user.roleId,
+      roleName: user.role?.name,
+      permissions,
+    };
+
     const accessToken = await this.jwtService.signAsync(payload, {
       secret: process.env.ACCESS_TOKEN_KEY,
       expiresIn: '1h',

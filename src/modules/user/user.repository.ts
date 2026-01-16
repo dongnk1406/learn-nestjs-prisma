@@ -1,7 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { User, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { CreateUserDto, TUserFilter, UpdateUserDto } from './dto/user.dto';
+
+const userWithRoleInclude = {
+  role: {
+    include: {
+      permissions: {
+        include: {
+          permission: true,
+        },
+      },
+    },
+  },
+};
+
+type UserWithRole = Prisma.UserGetPayload<{
+  include: typeof userWithRoleInclude;
+}>;
 
 @Injectable()
 export class UserRepository {
@@ -28,19 +44,21 @@ export class UserRepository {
     return 'User successfully deleted';
   }
 
-  async findUserByEmail(email: string): Promise<User | null> {
+  async findUserByEmail(email: string): Promise<UserWithRole | null> {
     return this.prismaService.user.findUnique({
       where: {
         email,
       },
+      include: userWithRoleInclude,
     });
   }
 
-  async findUserById(id: number): Promise<User | null> {
+  async findUserById(id: number): Promise<UserWithRole | null> {
     return this.prismaService.user.findUnique({
       where: {
         id,
       },
+      include: userWithRoleInclude,
     });
   }
 

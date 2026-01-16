@@ -25,6 +25,11 @@ import {
 import { UserService } from './user.service';
 import { Public } from 'src/common/auth/decorators/public.decorator';
 import { ResponseMessage } from 'src/common/interceptors/response.decorator';
+import { RequirePermissions } from 'src/common/auth/decorators/permissions.decorator';
+import {
+  COMMENT_PERMISSIONS,
+  USER_PERMISSIONS,
+} from 'src/utils/constants/permissions.constant';
 
 @Controller('users')
 export class UserController {
@@ -47,6 +52,7 @@ export class UserController {
   }
 
   @Get()
+  @RequirePermissions([USER_PERMISSIONS.READ_USER])
   getUsersList(@Query() params: TUserFilter): Promise<TUserPaginationResponse> {
     return this.userService.getUsersList(params);
   }
@@ -57,11 +63,13 @@ export class UserController {
   }
 
   @Get(':id')
+  @RequirePermissions([USER_PERMISSIONS.READ_USER])
   getUser(@Param('id', ParseIntPipe) id: number): Promise<UserDto> {
     return this.userService.getUser(Number(id));
   }
 
   @Put(':id')
+  @RequirePermissions([USER_PERMISSIONS.UPDATE_USER])
   updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateUserDto,
@@ -70,11 +78,13 @@ export class UserController {
   }
 
   @Delete(':id')
+  @RequirePermissions([USER_PERMISSIONS.DELETE_USER])
   deleteUser(@Param('id', ParseIntPipe) id: number): Promise<string> {
     return this.userService.deleteUser(id);
   }
 
   @Get(':userId/comments')
+  @RequirePermissions([COMMENT_PERMISSIONS.READ_COMMENT])
   getCommentsForUser(
     @Param('userId', ParseIntPipe) userId: number,
   ): Promise<CommentDto[]> {
