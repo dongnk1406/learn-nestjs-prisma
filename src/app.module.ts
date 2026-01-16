@@ -11,6 +11,7 @@ import { TasksModule } from './modules/task-scheduler/task.module';
 import { LoggerModule } from 'nestjs-pino';
 import { PostModule } from './modules/post/post.module';
 import { HealthCheckModule } from './common/health-check/health-check.module';
+import { RolesGuard } from './common/auth/guards/roles.guard';
 
 @Module({
   imports: [
@@ -36,7 +37,10 @@ import { HealthCheckModule } from './common/health-check/health-check.module';
       },
     }),
   ],
-  providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
+  providers: [
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

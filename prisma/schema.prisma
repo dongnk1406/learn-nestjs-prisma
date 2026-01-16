@@ -4,6 +4,10 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// If you just need a plain many‑to‑many (Role ↔ Permission), Prisma’s implicit relation is enough — no RolePermission model required.
+
+// If you need extra metadata or custom control on the join, then you must define RolePermission explicitly (like you did).
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -30,14 +34,9 @@ model User {
   post      Post[]
   comments  Comment[]
   reminders DateTime[]
-
-  // Database indexes for performance optimization
-  @@index([status]) // For filtering by user status (ACTIVE/INACTIVE)
-  @@index([createdAt]) // For timestamp-based ordering and filtering
-  @@index([name]) // For name-based searches
-  @@index([status, createdAt]) // Composite index for filtered and sorted queries
-  @@index([email, status]) // For authentication with status validation
-  @@index([name, status]) // For name searches with status filtering
+  // One-to-many (each user has exactly one role, but a role can be assigned to many users).
+  roleId    Int
+  role      Role       @relation(fields: [roleId], references: [id])
 }
 
 // One-to-Many relationship with User and Post
@@ -74,3 +73,42 @@ model Comment {
   post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   author User @relation(fields: [authorId], references: [id])
 }
+
+model Role {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique // e.g. ADMIN, USER, GUEST
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  // One‑to‑many (each role can have multiple users, but each user belongs to one role).
+  users       User[]
+  // Many‑to‑many (each role can have multiple permissions, and each permission can belong to multiple roles).
+  permissions RolePermission[]
+}
+
+model Permission {
+  id        Int       @id @default(autoincrement())
+  name      String    // e.g. CREATE POST, DELETE USER
+  nameCode  String    @unique // eg. CREATE_POST, DELETE_USER
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  // Many‑to‑many (each permission can belong to multiple roles, and each role can have multiple permissions).
+  roles RolePermission[]
+}
+
+// Junction table for many-to-many relationship between Role and Permission
+model RolePermission {
+  roleId       Int
+  permissionId Int
+  assignedAt   DateTime @default(now())
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("RoleToPermission")
+}
+
+
