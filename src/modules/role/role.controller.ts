@@ -19,7 +19,7 @@ import {
   AssignPermissionsDto,
 } from './dto/role.dto';
 import { RequirePermissions } from 'src/common/auth/decorators/permissions.decorator';
-import { Roles } from 'src/common/auth/guards/roles.decorator';
+import { Roles } from 'src/common/auth/decorators/roles.decorator';
 import {
   ROLE_PERMISSIONS,
   PERMISSION_PERMISSIONS,

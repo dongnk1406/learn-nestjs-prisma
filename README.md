@@ -209,6 +209,14 @@ completely override a function depending on specific conditions (e.g., for cachi
 
 ## Caching (Redis)
 
+* the best cache strategy for database when update data is update database then clear cache. That make sure the data is always up to date and consistent.
+
+[Video 32, 33, 34, 35]<https://www.youtube.com/watch?v=MMczVW-4jb4&list=PLw0w5s5b9NK7HkcQUBIxjcHPB2DS4UKDg&index=17/>
+
+* Lock cache
+
+### Bloom filter
+
 ## Message queue (Kafka)
 
 ## Cron jobs
@@ -223,9 +231,9 @@ completely override a function depending on specific conditions (e.g., for cachi
 
 ## Race Condition
 
-Với race conditions, luôn phải tạo constraint và trigger cũng như sử dụng transaction.transaction
+* Với race conditions, luôn phải tạo constraint và trigger cũng như sử dụng transaction.transaction
 
-Trong nestjs, sử dụng [Sequelize transactions](https://docs.nestjs.com/techniques/database#sequelize-transactions)
+* Trong nestjs, sử dụng [Sequelize transactions](https://docs.nestjs.com/techniques/database#sequelize-transactions)
 
 ## Structure of Project
 
@@ -277,3 +285,11 @@ Aspect Oriented Programming (AOP) – lập trình hướng khía cạnh: là m�
 ## Provider
 
 * Provider in Nestjs is Bean in java
+
+## GRPC 
+
+* phù hợp các dự án streaming
+
+## TCP
+
+* pù hợp gọi nội bộ vì tình bảo mật

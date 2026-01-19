@@ -8,12 +8,13 @@ import {
 } from 'class-validator';
 import { Exclude, Expose } from 'class-transformer';
 import { UserStatus } from '@prisma/client';
+import { PHONE_REGEX } from 'src/utils/constants/regex.constant';
 
 export class CreateUserDto {
   @IsNotEmpty()
   name: string;
 
-  @Matches(/^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/)
+  @Matches(PHONE_REGEX)
   phone: string;
 
   @IsEmail()
@@ -35,7 +36,7 @@ export class UpdateUserDto {
   @IsNotEmpty()
   name: string;
 
-  @Matches(/^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/)
+  @Matches(PHONE_REGEX)
   phone: string;
 
   @IsOptional()

@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 import { RequirePermissions } from '../decorators/permissions.decorator';
-import { Roles } from './roles.decorator';
+import { Roles } from '../decorators/roles.decorator';
 import { TUserContextDto } from '../dto/userContext.dto';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 

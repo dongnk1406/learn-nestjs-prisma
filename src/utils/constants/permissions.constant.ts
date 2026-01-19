@@ -1,44 +1,44 @@
 export const USER_PERMISSIONS = {
-  CREATE_USER: 'CREATE_USER',
-  READ_USER: 'READ_USER',
-  UPDATE_USER: 'UPDATE_USER',
-  DELETE_USER: 'DELETE_USER',
+  CREATE_USER: 'user:create',
+  READ_USER: 'user:read',
+  UPDATE_USER: 'user:update',
+  DELETE_USER: 'user:delete',
 } as const;
 
 export const ROLE_PERMISSIONS = {
-  CREATE_ROLE: 'CREATE_ROLE',
-  READ_ROLE: 'READ_ROLE',
-  UPDATE_ROLE: 'UPDATE_ROLE',
-  DELETE_ROLE: 'DELETE_ROLE',
+  CREATE_ROLE: 'role:create',
+  READ_ROLE: 'role:read',
+  UPDATE_ROLE: 'role:update',
+  DELETE_ROLE: 'role:delete',
 } as const;
 
 export const PERMISSION_PERMISSIONS = {
-  CREATE_PERMISSION: 'CREATE_PERMISSION',
-  READ_PERMISSION: 'READ_PERMISSION',
-  UPDATE_PERMISSION: 'UPDATE_PERMISSION',
-  DELETE_PERMISSION: 'DELETE_PERMISSION',
-  ASSIGN_PERMISSIONS: 'ASSIGN_PERMISSIONS',
+  CREATE_PERMISSION: 'permission:create',
+  READ_PERMISSION: 'permission:read',
+  UPDATE_PERMISSION: 'permission:update',
+  DELETE_PERMISSION: 'permission:delete',
+  ASSIGN_PERMISSIONS: 'permission:assign',
 } as const;
 
 export const POST_PERMISSIONS = {
-  CREATE_POST: 'CREATE_POST',
-  READ_POST: 'READ_POST',
-  UPDATE_POST: 'UPDATE_POST',
-  DELETE_POST: 'DELETE_POST',
+  CREATE_POST: 'post:create',
+  READ_POST: 'post:read',
+  UPDATE_POST: 'post:update',
+  DELETE_POST: 'post:delete',
 } as const;
 
 export const COMMENT_PERMISSIONS = {
-  CREATE_COMMENT: 'CREATE_COMMENT',
-  READ_COMMENT: 'READ_COMMENT',
-  UPDATE_COMMENT: 'UPDATE_COMMENT',
-  DELETE_COMMENT: 'DELETE_COMMENT',
+  CREATE_COMMENT: 'comment:create',
+  READ_COMMENT: 'comment:read',
+  UPDATE_COMMENT: 'comment:update',
+  DELETE_COMMENT: 'comment:delete',
 } as const;
 
 export const CATEGORY_PERMISSIONS = {
-  CREATE_CATEGORY: 'CREATE_CATEGORY',
-  READ_CATEGORY: 'READ_CATEGORY',
-  UPDATE_CATEGORY: 'UPDATE_CATEGORY',
-  DELETE_CATEGORY: 'DELETE_CATEGORY',
+  CREATE_CATEGORY: 'category:create',
+  READ_CATEGORY: 'category:read',
+  UPDATE_CATEGORY: 'category:update',
+  DELETE_CATEGORY: 'category:delete',
 } as const;
 
 export const PERMISSIONS = {

@@ -6,16 +6,14 @@ async function seedDatabase() {
   const prisma = new PrismaService();
 
   try {
-    console.log('🌱 Starting database seeding...');
+    console.log('Starting database seeding...');
 
-    // Delete existing data (in reverse order due to foreign keys)
-    console.log('🧹 Cleaning existing data...');
+    console.log('Cleaning existing data...');
     await prisma.user.deleteMany();
     await prisma.rolePermission.deleteMany();
     await prisma.permission.deleteMany();
     await prisma.role.deleteMany();
 
-    // Create permissions
     const permissions = [
       // User permissions
       { name: 'Create User', nameCode: PERMISSIONS.CREATE_USER },
@@ -55,15 +53,14 @@ async function seedDatabase() {
       { name: 'Delete Category', nameCode: PERMISSIONS.DELETE_CATEGORY },
     ];
 
-    console.log('📝 Creating permissions...');
+    console.log('Creating permissions...');
     const createdPermissions = await Promise.all(
       permissions.map((permission) =>
         prisma.permission.create({ data: permission }),
       ),
     );
 
-    // Create roles
-    console.log('👥 Creating roles...');
+    console.log('Creating roles...');
     const adminRole = await prisma.role.create({
       data: {
         name: 'ADMIN',
@@ -92,8 +89,7 @@ async function seedDatabase() {
       },
     });
 
-    // Assign permissions to roles
-    console.log('🔗 Assigning permissions to roles...');
+    console.log('Assigning permissions to roles...');
 
     // Admin gets all permissions
     const adminPermissions = createdPermissions.map((permission) => ({
@@ -103,7 +99,7 @@ async function seedDatabase() {
     await prisma.rolePermission.createMany({ data: adminPermissions });
 
     // Editor gets content-related permissions
-    const editorPermissionCodes = [
+    const editorPermissionCodes: string[] = [
       PERMISSIONS.READ_USER,
       PERMISSIONS.CREATE_POST,
       PERMISSIONS.READ_POST,
@@ -119,7 +115,7 @@ async function seedDatabase() {
       PERMISSIONS.DELETE_CATEGORY,
     ];
     const editorPermissions = createdPermissions
-      .filter((p) => editorPermissionCodes.includes(p.nameCode as any))
+      .filter((p) => editorPermissionCodes.includes(p.nameCode))
       .map((permission) => ({
         roleId: editorRole.id,
         permissionId: permission.id,
@@ -127,19 +123,19 @@ async function seedDatabase() {
     await prisma.rolePermission.createMany({ data: editorPermissions });
 
     // User gets basic permissions
-    const userPermissionCodes = [
+    const userPermissionCodes: string[] = [
       PERMISSIONS.READ_USER,
-      PERMISSIONS.UPDATE_USER, // can update their own profile
+      PERMISSIONS.UPDATE_USER,
       PERMISSIONS.CREATE_POST,
       PERMISSIONS.READ_POST,
-      PERMISSIONS.UPDATE_POST, // can update their own posts
+      PERMISSIONS.UPDATE_POST,
       PERMISSIONS.CREATE_COMMENT,
       PERMISSIONS.READ_COMMENT,
-      PERMISSIONS.UPDATE_COMMENT, // can update their own comments
+      PERMISSIONS.UPDATE_COMMENT,
       PERMISSIONS.READ_CATEGORY,
     ];
     const userPermissions = createdPermissions
-      .filter((p) => userPermissionCodes.includes(p.nameCode as any))
+      .filter((p) => userPermissionCodes.includes(p.nameCode))
       .map((permission) => ({
         roleId: userRole.id,
         permissionId: permission.id,
@@ -147,13 +143,13 @@ async function seedDatabase() {
     await prisma.rolePermission.createMany({ data: userPermissions });
 
     // Guest gets only read permissions
-    const guestPermissionCodes = [
+    const guestPermissionCodes: string[] = [
       PERMISSIONS.READ_POST,
       PERMISSIONS.READ_COMMENT,
       PERMISSIONS.READ_CATEGORY,
     ];
     const guestPermissions = createdPermissions
-      .filter((p) => guestPermissionCodes.includes(p.nameCode as any))
+      .filter((p) => guestPermissionCodes.includes(p.nameCode))
       .map((permission) => ({
         roleId: guestRole.id,
         permissionId: permission.id,
@@ -219,27 +215,24 @@ async function seedDatabase() {
       },
     });
 
-    console.log('✅ Database seeding completed successfully!');
+    console.log('Database seeding completed successfully!');
     console.log(`
-🎉 Summary:
-📊 Roles Created:
-  - ADMIN (${adminRole.id}): ${adminPermissions.length} permissions
-  - EDITOR (${editorRole.id}): ${editorPermissions.length} permissions
-  - USER (${userRole.id}): ${userPermissions.length} permissions
-  - GUEST (${guestRole.id}): ${guestPermissions.length} permissions
+Roles Created:
+- ADMIN (${adminRole.id}): ${adminPermissions.length} permissions
+- EDITOR (${editorRole.id}): ${editorPermissions.length} permissions
+- USER (${userRole.id}): ${userPermissions.length} permissions
+- GUEST (${guestRole.id}): ${guestPermissions.length} permissions
 
-📝 Permissions Created: ${createdPermissions.length} total
+Permissions Created: ${createdPermissions.length} total
 
-👥 Users Created:
-  - Admin User (${adminUser.id}): admin@example.com / admin123456
-  - Editor User (${editorUser.id}): editor@example.com / editor123456
-  - Regular User (${testUser.id}): user@example.com / user123456
-  - Guest User (${guestUser.id}): guest@example.com / guest123456
-
-🚀 You can now start testing the RBAC system!
-`);
+Users Created:
+- Admin User (${adminUser.id}): admin@example.com / admin123456
+- Editor User (${editorUser.id}): editor@example.com / editor123456
+- Regular User (${testUser.id}): user@example.com / user123456
+- Guest User (${guestUser.id}): guest@example.com / guest123456
+    `);
   } catch (error) {
-    console.error('❌ Error seeding database:', error);
+    console.error('Error seeding database:', error);
     throw error;
   } finally {
     await prisma.$disconnect();
