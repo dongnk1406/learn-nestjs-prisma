@@ -8,7 +8,10 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: learn-nestjs-prisma
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - 5434:5432
     container_name: learn-nestjs-prisma-postgresql
+
+volumes:
+  postgres_data:

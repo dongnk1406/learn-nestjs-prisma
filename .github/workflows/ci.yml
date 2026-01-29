@@ -36,46 +36,66 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
-          cache: "npm"
 
-      # Update and install dependencies
+      # Setup pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          run_install: false
+
+      # Get pnpm store directory
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      # Setup pnpm cache
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      # Install dependencies
       - name: Install dependencies
-        run: |
-          npm ci
-          npm audit --audit-level high
+        run: pnpm install --frozen-lockfile
 
       # Prisma generate
       - name: Generate Prisma client
-        run: npm run db:generate
+        run: pnpm run db:generate
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
       # Prisma migrate (for testing)
       - name: Run database migrations
-        run: npm run db:migrate
+        run: pnpm run db:migrate:dev
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
       # Lint
       - name: Run linter
-        run: npm run lint
+        run: pnpm run lint
 
       # Type checking
       - name: Run type checking
-        run: npm run types
+        run: pnpm --filter=@learn-nestjs-prisma/service run types
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
       # Test
       - name: Run unit tests
-        run: npm run test
+        run: pnpm run test
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
       # Test coverage
       - name: Run tests with coverage
-        run: npm run test:cov
+        run: pnpm --filter=@learn-nestjs-prisma/service run test:cov
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db?schema=public"
 
       # Build
       - name: Build application
-        run: npm run build
+        run: pnpm run build

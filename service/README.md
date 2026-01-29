@@ -4,7 +4,7 @@
 ## Project setup
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## Compile and run the project
@@ -14,17 +14,17 @@ npm install
 $ docker compose up -d
 
 # development
-$ npm run db:migrate:dev
+$ pnpm run db:migrate:dev
 
-$ npm run db:generate
+$ pnpm run db:generate
 
-$ npm run start
+$ pnpm run start
 
 # watch mode
-$ npm run start:dev
+$ pnpm run start:dev
 
 # production mode
-$ npm run start:prod
+$ pnpm run start:prod
 ```
 
 Access: <http://localhost:3000>
@@ -35,13 +35,13 @@ Swagger <http://localhost:3000/api>
 
 ```bash
 # unit tests
-$ npm run test
+$ pnpm run test
 
 # e2e tests
-$ npm run test:e2e
+$ pnpm run test:e2e
 
 # test coverage
-$ npm run test:cov
+$ pnpm run test:cov
 ```
 
 ## Deployment
@@ -49,8 +49,8 @@ $ npm run test:cov
 PM2 keeps your Node app running, restarts it if it crashes, and helps manage multiple processes.
 
 ```bash
-npm install -g pm2
-npm run build
+pnpm install -g pm2
+pnpm run build
 pm2 start dist/main.js --name process-name
 ```
 
@@ -125,11 +125,11 @@ As part of our SQL learning process, every query should be implemented using bot
 ```bash
 npx prisma migrate dev --name migration_name`
 
-npm run db:generate`
+pnpm run db:generate`
 
-npm run db:migrate:dev`
+pnpm run db:migrate:dev`
 
-npm run db:seed`
+pnpm run db:seed`
 ```
 
 ## ✅ Middleware
