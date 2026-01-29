@@ -116,6 +116,10 @@ pm2 monit
 
 As part of our SQL learning process, every query should be implemented using both Prisma and raw SQL for comparison.
 
+### Join Sql
+
+<https://www.youtube.com/watch?v=Oe_AcOyUnVs/>
+
 ### Migration
 
 ```bash
@@ -214,6 +218,8 @@ completely override a function depending on specific conditions (e.g., for cachi
 [Video 32, 33, 34, 35]<https://www.youtube.com/watch?v=MMczVW-4jb4&list=PLw0w5s5b9NK7HkcQUBIxjcHPB2DS4UKDg&index=17/>
 
 * Lock cache
+
+* Distributed Lock
 
 ### Bloom filter
 

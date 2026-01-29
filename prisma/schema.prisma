@@ -4,9 +4,19 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-// If you just need a plain many‑to‑many (Role ↔ Permission), Prisma’s implicit relation is enough — no RolePermission model required.
+// If you just need a plain many‑to‑many (Role <-> Permission), Prisma’s implicit relation is enough — no RolePermission model required.
 
 // If you need extra metadata or custom control on the join, then you must define RolePermission explicitly (like you did).
+
+/**
+ * Relationship Summary
+ * - User <-> Role: One-to-Many (Each user is assigned one role, while a role can be associated with many users.)
+ * - User <-> Post: One-to-Many (A user can own multiple posts, but each post belongs to a single user.)
+ * - User <-> Comment: One-to-Many (A user can author multiple comments, but each comment is linked to one user.)
+ * - Post <-> Category: Many-to-Many (A post can belong to multiple categories, and a category can contain multiple posts.)
+ * - Post <-> Comment: One-to-Many (A post can have multiple comments, but each comment is tied to a single post.)
+ * - Role <-> Permission: Many-to-Many (A role can have multiple permissions, and a permission can be assigned to multiple roles.)
+ */
 
 generator client {
   provider = "prisma-client-js"
@@ -89,7 +99,7 @@ model Role {
 
 model Permission {
   id        Int       @id @default(autoincrement())
-  name      String    // e.g. CREATE POST, DELETE USER
+  name      String // e.g. CREATE POST, DELETE USER
   nameCode  String    @unique // eg. CREATE_POST, DELETE_USER
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -110,5 +120,3 @@ model RolePermission {
   @@id([roleId, permissionId])
   @@map("RoleToPermission")
 }
-
-
