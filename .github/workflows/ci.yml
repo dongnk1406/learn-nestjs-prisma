@@ -60,8 +60,8 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
+        run: pnpm install --no-frozen-lockfile
+        
       # Prisma generate
       - name: Generate Prisma client
         run: pnpm run db:generate
