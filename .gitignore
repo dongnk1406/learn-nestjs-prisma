@@ -1,26 +1,43 @@
-# compiled output
+# -----------------------------
+# Build & Compiled Output
+# -----------------------------
 /dist
-/node_modules
 /build
+/node_modules
+**/dist/
+**/node_modules/
 
-# Logs
+# -----------------------------
+# Logs & Debug Files
+# -----------------------------
 logs
+**/logs/
 *.log
+**/*.log
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+.pnpm-debug.log*
 
-# OS
+# -----------------------------
+# OS / System Files
+# -----------------------------
 .DS_Store
 
-# Tests
+# -----------------------------
+# Test Coverage & Reports
+# -----------------------------
 /coverage
-/.nyc_output
+**/coverage/
+.nyc_output
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# IDEs and editors
-/.idea
+# -----------------------------
+# IDE / Editor Settings
+# -----------------------------
+.idea/
 .project
 .classpath
 .c9/
@@ -28,48 +45,37 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
+# VSCode (allow project configs)
+/.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# dotenv environment variable files
+# -----------------------------
+# Environment Variables
+# -----------------------------
 .env
+.env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.env.local
-# Allow .env.example files to be committed
-!.env.example
+**/.env*
+!**/.env.example
 
-# temp directory
+# -----------------------------
+# Temporary & Runtime Data
+# -----------------------------
 .temp
 .tmp
-
-# Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-
-/generated/prisma
-data/
-# pnpm
+# -----------------------------
+# Package Manager / Workspace
+# -----------------------------
 .pnpm-store/
-.pnpm-debug.log*
-
-# Workspace
-**/node_modules/
-**/dist/
-**/.env*
-!**/.env.example
-**/coverage/
-
-# Logs
-**/logs/
-**/*.log
+generated/prisma/
+data/
