@@ -103,29 +103,29 @@ function Profile() {
         <InfoGrid>
           <InfoItem>
             <Label>Name</Label>
-            <Value>{profile.name}</Value>
+            <Value>{profile.data.name}</Value>
           </InfoItem>
           
           <InfoItem>
             <Label>Email</Label>
-            <Value>{profile.email}</Value>
+            <Value>{profile.data.email}</Value>
           </InfoItem>
           
           <InfoItem>
             <Label>Phone</Label>
-            <Value>{profile.phone}</Value>
+            <Value>{profile.data.phone}</Value>
           </InfoItem>
           
           <InfoItem>
             <Label>Status</Label>
-            <StatusBadge status={profile.status}>
-              {profile.status}
+            <StatusBadge status={profile.data.status}>
+              {profile.data.status}
             </StatusBadge>
           </InfoItem>
           
           <InfoItem>
             <Label>Role ID</Label>
-            <Value>{profile.roleId}</Value>
+            <Value>{profile.data.roleId}</Value>
           </InfoItem>
         </InfoGrid>
         
