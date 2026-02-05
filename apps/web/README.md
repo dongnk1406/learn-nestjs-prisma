@@ -1,6 +1,6 @@
-# Frontend - React with TanStack Router & Emotion
+# Web App - React with TanStack Router & Emotion
 
-This is the frontend application for the NestJS Prisma project, built with modern React technologies.
+This is the web application for the NestJS Prisma project, built with modern React technologies.
 
 ## Tech Stack
 
@@ -14,7 +14,7 @@ This is the frontend application for the NestJS Prisma project, built with moder
 ## Project Structure
 
 ```
-frontend/
+apps/web/
 ├── src/
 │   ├── components/
 │   │   └── ui/          # Reusable UI components
